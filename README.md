@@ -2,7 +2,7 @@
 
 Automated REST API testing framework using Python, pytest, and requests library.
 
-![API Tests](https://github.com/YOUR_USERNAME/api-testing/workflows/API%20Tests/badge.svg)
+![API Tests](https://github.com/PaulE202/api-testing/workflows/API%20Tests/badge.svg)
 
 ## Technologies
 - Python 3.11
