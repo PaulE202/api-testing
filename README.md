@@ -44,6 +44,9 @@ pytest tests/ -v
 
 # Run specific test file
 pytest tests/test_users.py -v
+
+> **Note:** GoRest tests run locally only. GoRest blocks GitHub Actions IP ranges.
+> Run `pytest tests/test_gorest_auth.py -v` locally to execute authentication and negative tests.
 ```
 
 ## Test Coverage

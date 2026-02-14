@@ -17,5 +17,4 @@ jobs:
       with:
         python-version: '3.13'
     - run: pip install -r requirements.txt
-    - run: python -c "import os; print('Token exists:', bool(os.getenv('GOREST_TOKEN')))"
     - run: pytest tests/ -v

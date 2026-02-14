@@ -1,6 +1,9 @@
+import os
+import pytest
 import requests
 import time
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_create_user_no_token(gorest_url):
     """Test that requests without token are rejected"""
 
@@ -13,6 +16,7 @@ def test_create_user_no_token(gorest_url):
     response = requests.post(gorest_url, json=new_user)
     assert response.status_code == 401
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_create_user_invalid_token(gorest_url):
     """Test that requests with invalid token are rejected"""
 
@@ -26,6 +30,7 @@ def test_create_user_invalid_token(gorest_url):
     response = requests.post(gorest_url, json=new_user, headers=headers)
     assert response.status_code == 401
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_create_user_with_auth(gorest_url, gorest_headers):
     """Test that creating user with auth succeeds"""
 
@@ -39,6 +44,7 @@ def test_create_user_with_auth(gorest_url, gorest_headers):
     response = requests.post(gorest_url, json=new_user, headers=gorest_headers)
     assert response.status_code == 201
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_create_user_missing_email(gorest_url, gorest_headers):
     """Test creating user without required email field"""
 
@@ -57,6 +63,7 @@ def test_create_user_missing_email(gorest_url, gorest_headers):
     assert errors[0]['field'] == 'email'
     assert "can't be blank" in errors[0]['message'].lower()
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_create_user_invalid_email(gorest_url, gorest_headers):
     """Test creating user with invalid email format"""
 
@@ -76,6 +83,7 @@ def test_create_user_invalid_email(gorest_url, gorest_headers):
     assert errors[0]['field'] == 'email'
     assert "is invalid" in errors[0]['message'].lower()
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_create_user_invalid_gender(gorest_url, gorest_headers):
     """Test creating user with invalid gender"""
     
@@ -95,6 +103,7 @@ def test_create_user_invalid_gender(gorest_url, gorest_headers):
     assert errors[0]['field'] == 'gender'
     assert "can't be blank, can be male of female" in errors[0]['message'].lower()
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_create_user_duplicate_email(gorest_url, gorest_headers):
     """Test creating user with email that already exists"""
 
@@ -109,7 +118,7 @@ def test_create_user_duplicate_email(gorest_url, gorest_headers):
     
     first_response = requests.post(gorest_url, json=new_user, headers=gorest_headers)
     created_user = first_response.json()
-    
+
     assert first_response.status_code == 201
 
     duplicate_response = requests.post(gorest_url, json=new_user, headers=gorest_headers)
@@ -124,6 +133,7 @@ def test_create_user_duplicate_email(gorest_url, gorest_headers):
     user_id = created_user['id']
     requests.delete(f"{gorest_url}/{user_id}", headers=gorest_headers)
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_get_nonexistent_user(gorest_url, gorest_headers):
     """Test getting user that doesn't exist"""
 
@@ -133,6 +143,7 @@ def test_get_nonexistent_user(gorest_url, gorest_headers):
     response = requests.get(url, headers=gorest_headers)
     assert response.status_code == 404
 
+@pytest.mark.skipif(os.getenv('CI') == 'true', reason="GoRest blocks CI runners")
 def test_update_nonexistent_user(gorest_url, gorest_headers):
     """Test updating user that doesn't exist"""
 
